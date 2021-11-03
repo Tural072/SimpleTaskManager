@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SimpleTaskManager"
+        xmlns:local="clr-namespace:SimpleTaskManager" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -16,21 +16,59 @@
                 <ColumnDefinition Width="2.5*"></ColumnDefinition>
                 <ColumnDefinition Width="8*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="9*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label FontFamily="comic sans ms"
-                   FontSize="20"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center">Process Name</Label>
-            
             <ListView x:Name="wishListView" 
                       Grid.Column="0"
                       Grid.Row="2"></ListView>
-            <ListView x:Name="processListView" 
+            <ListView SelectedItem="{Binding SelectedProcess}" 
+                      ItemsSource="{Binding Processes}"
                       Grid.Column="1"
-                      Grid.Row="2"></ListView>
+                      Grid.Row="1"
+                      >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" Width="114">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,0" Text="{ Binding Id}" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="114">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,0" Text="{Binding ProcessName}" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Handle Count" Width="114">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,0" Text="{Binding HandleCount}" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Thread Count" Width="114">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,0" Text="{Binding Threads}" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Machine Name" Width="114">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,0" Text="{Binding MachineName}" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
         <WrapPanel Grid.Row="1"
                    Background="Bisque">
@@ -44,7 +82,8 @@
                     FontSize="20"
                     Foreground="Black"
                     Background="White"
-                    Margin="10,10,145,10"></Button>
+                    Margin="10,10,138,10"
+                    Command="{Binding AddCommand}"></Button>
             <TextBox x:Name="processNameTxtbx"
                      Width="167"
                      Height="40"
@@ -55,14 +94,16 @@
                     FontSize="20"
                     Margin="10"
                     Foreground="Black"
-                    Background="White"></Button>
+                    Background="White"
+                    Command="{Binding CreateCommand}"></Button>
             <Button x:Name="endBtn"
                     Content="End"
                     FontFamily="comic sans ms"
                     FontSize="20"
                     Margin="10"
                     Foreground="Black"
-                    Background="White"></Button>
+                    Background="White"
+                    Command="{Binding EndCommand}"></Button>
         </WrapPanel>
     </Grid>
 </Window>

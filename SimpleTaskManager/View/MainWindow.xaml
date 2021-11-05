@@ -20,10 +20,9 @@
                       Grid.Column="0"
                       Grid.Row="2"></ListView>
             <ListView SelectedItem="{Binding SelectedProcess}" 
-                      ItemsSource="{Binding Processes}"
                       Grid.Column="1"
                       Grid.Row="1"
-                      >
+                      Name="propcessesListView">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction />

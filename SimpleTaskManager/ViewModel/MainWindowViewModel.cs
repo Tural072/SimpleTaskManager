@@ -15,7 +15,7 @@ namespace SimpleTaskManager.ViewModel
     public class MainWindowViewModel : BaseViewModel
     {
         public MainWindow MainWindow { get; set; }
-        public ObservableCollection<Process> Processes { get; set; }
+        public ObservableCollection<Process> Processes { get; set; },
         private Process selectedProcess;
 
         public Process SelectedProcess
